@@ -40,3 +40,16 @@ button:hover {
     max-width: 400px;
     border-radius: 5px;
 }
+
+.note button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.note button:hover {
+    background-color: #c0392b;
+}
