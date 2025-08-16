@@ -39,7 +39,8 @@ function renderNotes(query = '') {
             noteDiv.innerHTML = `
                 <h3>${note.title}</h3>
                 <p>${note.content}</p>
-                <button onclick="deleteNote(${index})">Hapus</button>
+                <button class="edit-btn" onclick="editNote(${index})">Edit</button>
+                <button class="delete-btn" onclick="deleteNote(${index})">Hapus</button>
             `;
             notesList.appendChild(noteDiv);
         });
@@ -49,6 +50,18 @@ function deleteNote(index) {
     notes.splice(index, 1);
     saveNotes();
     renderNotes(searchInput.value);
+}
+
+function editNote(index) {
+    const note = notes[index];
+    const newTitle = prompt("Ubah judul catatan:", note.title);
+    const newContent = prompt("Ubah isi catatan:", note.content);
+
+    if (newTitle !== null && newContent !== null) {
+        notes[index] = { title: newTitle, content: newContent };
+        saveNotes();
+        renderNotes(searchInput.value);
+    }
 }
 
 function saveNotes() {
