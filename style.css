@@ -41,6 +41,7 @@ button:hover {
     border-radius: 5px;
 }
 
+/* Tombol hapus */
 .note button {
     background-color: #e74c3c;
     color: white;
@@ -53,3 +54,4 @@ button:hover {
 .note button:hover {
     background-color: #c0392b;
 }
+

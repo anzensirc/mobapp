@@ -1,5 +1,6 @@
 const form = document.getElementById('noteForm');
 const notesList = document.getElementById('notesList');
+const searchInput = document.getElementById('searchInput');
 
 let notes = JSON.parse(localStorage.getItem('notes')) || [];
 
@@ -17,27 +18,37 @@ form.addEventListener('submit', (e) => {
 
     saveNotes();
     form.reset();
-    renderNotes();
+    renderNotes(searchInput.value);
 });
 
-function renderNotes() {
+// Pencarian real-time
+searchInput.addEventListener('input', () => {
+    renderNotes(searchInput.value);
+});
+
+function renderNotes(query = '') {
     notesList.innerHTML = '';
-    notes.forEach((note, index) => {
-        const noteDiv = document.createElement('div');
-        noteDiv.classList.add('note');
-        noteDiv.innerHTML = `
-            <h3>${note.title}</h3>
-            <p>${note.content}</p>
-            <button onclick="deleteNote(${index})">Hapus</button>
-        `;
-        notesList.appendChild(noteDiv);
-    });
+    notes
+        .filter(note => 
+            note.title.toLowerCase().includes(query.toLowerCase()) || 
+            note.content.toLowerCase().includes(query.toLowerCase())
+        )
+        .forEach((note, index) => {
+            const noteDiv = document.createElement('div');
+            noteDiv.classList.add('note');
+            noteDiv.innerHTML = `
+                <h3>${note.title}</h3>
+                <p>${note.content}</p>
+                <button onclick="deleteNote(${index})">Hapus</button>
+            `;
+            notesList.appendChild(noteDiv);
+        });
 }
 
 function deleteNote(index) {
     notes.splice(index, 1);
     saveNotes();
-    renderNotes();
+    renderNotes(searchInput.value);
 }
 
 function saveNotes() {
