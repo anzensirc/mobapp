@@ -1,90 +1,88 @@
-Sip 👍 kalau gitu aku bikinin file tunggal **`README.md`** aja, biar langsung bisa kamu taruh di root project.
 
 ---
 
-## 📄 README.md
+# 📝 Daily Notes App
 
-```markdown
-# 📝 Notes App (Day 5)
-
-Aplikasi catatan sederhana berbasis **HTML, CSS, dan JavaScript**.  
-Dibuat secara bertahap setiap hari (push harian) untuk belajar dasar pemrograman web.
+A simple note-taking web application built with **HTML, CSS, and JavaScript**.
+This project is designed as a daily push exercise (Day 1, Day 2, …) for GitHub practice.
 
 ---
 
-## 🚀 Fitur
-- Tambah catatan
-- Hapus catatan
-- Cari catatan
-- Simpan otomatis di **LocalStorage** (tidak hilang saat browser ditutup)
-- UI simpel dengan layout rapi
+## 🚀 Features
+
+* Add new notes with title & content
+* Delete notes
+* Persistent storage using **LocalStorage**
+* Responsive layout with search bar
+* Notes aligned neatly on the right side
 
 ---
 
-## 📂 Struktur Project
+## 📂 Project Structure
+
+```bash
+daily-notes-app/
+│── src/
+│   ├── index.html     # Main HTML file
+│   ├── style.css      # Styling (CSS)
+│   ├── app.js         # Entry point, app initialization
+│   ├── notes.js       # Notes model / structure
+│   ├── script.js      # Main script runner
+│   ├── storage.js     # LocalStorage utilities
+│   └── ui.js          # UI rendering and interactions
+│── README.md          # Documentation
+│── LICENSE            # MIT License
 ```
 
-notes-app/
-│
-├── index.html        # Halaman utama
-├── style.css         # Styling global
-│
-├── src/              # Folder source code
-│   ├── app.js        # Entry utama (menghubungkan modul)
-│   ├── notes.js      # Modul logic catatan (add, delete, search)
-│   ├── ui.js         # Modul render tampilan
-│   └── storage.js    # Modul helper LocalStorage
-│
-└── assets/           # (opsional) ikon, gambar
-
-````
-
 ---
 
-## ⚡ Cara Menjalankan
-1. Clone repo ini
+## 🛠️ Installation & Running
+
+1. Clone this repository
+
    ```bash
-   git clone https://github.com/username/notes-app.git
-   cd notes-app
-````
+   git clone https://github.com/anzensirc/mobapp.git
+   ```
+2. Navigate into the project
 
-2. Buka file `index.html` di browser (cukup double click, atau pakai live server di VS Code).
-3. Tambahkan catatan → otomatis tersimpan di browser.
-4. Catatan akan tetap ada meskipun browser ditutup, karena menggunakan **LocalStorage**.
+   ```bash
+   cd mobapp
+   ```
+3. Run 
+   ```bash
+   python -m http.server 5173
+   ```
+   Or Open `index.html` in your browser
 
----
+   * Just double-click `index.html`, or
+   * Run a local server (recommended):
 
-## 📌 Tech Stack
-
-* HTML5
-* CSS3
-* JavaScript (modular, vanilla JS, tanpa framework)
-
----
-
-## 📸 Preview
-
-*(Tambahkan screenshot aplikasi setelah running di browser)*
+     ```bash
+     npx serve .
+     ```
 
 ---
 
-## 👨‍💻 Progress Harian
+## 📸 Screenshot (Example)
 
-* **Day 1** → Setup project & tambah catatan
-* **Day 2** → Hapus catatan + LocalStorage
-* **Day 3** → Cari catatan
-* **Day 4** → UI improvement (search bar, layout)
-* **Day 5** → Modularisasi project jadi struktur `src/`
+![App Screenshot](docs/screenshot.png)
 
 ---
 
-## 🏷️ Lisensi
+## 📜 License
 
-Proyek ini bebas digunakan untuk belajar atau dikembangkan lebih lanjut 🚀
+This project is licensed under the [MIT License](./LICENSE).
 
+```
+MIT License © 2025 [Your Name]
 ```
 
 ---
 
-Mau aku sekalian bikinin **versi lengkap dengan badge GitHub (last commit, build passing, dsb)** supaya README lebih profesional, atau cukup sederhana aja kaya ini?
-```
+## 👨‍💻 Author
+
+* GitHub: [Morgen Zen](https://github.com/anzensirc)
+* Project maintained as part of **daily push routine**.
+
+---
+
