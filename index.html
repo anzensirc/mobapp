@@ -1,28 +1,43 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aplikasi Catatan Harian</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aplikasi Catatan - Day 5</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <div class="container">
-    <h1>Aplikasi Catatan</h1>
-    
-    <div class="form-container">
-      <input type="text" id="noteInput" placeholder="Tulis catatan baru...">
-      <button id="addNoteBtn">Tambah</button>
-    </div>
+  <div class="app">
+    <!-- Sidebar Kiri -->
+    <aside class="sidebar">
+      <h1>📝 Aplikasi Catatan</h1>
 
-    <div class="search-container">
-      <input type="text" id="searchInput" placeholder="Cari catatan...">
-    </div>
+      <form id="noteForm" class="form">
+        <label for="noteInput" class="label">Catatan</label>
+        <textarea id="noteInput" placeholder="Tulis catatan baru..." required></textarea>
 
-    <h2>Daftar Catatan</h2>
-    <div id="notesList"></div>
+        <div class="actions">
+          <button id="submitBtn" type="submit">Tambah</button>
+          <button id="cancelEditBtn" type="button" class="ghost" hidden>Batal</button>
+        </div>
+
+        <p id="editHint" class="hint" hidden>Sedang mengedit catatan…</p>
+      </form>
+
+      <div class="search-container">
+        <input id="searchInput" type="text" placeholder="Cari catatan..."/>
+      </div>
+    </aside>
+
+    <!-- Konten Kanan -->
+    <main class="content">
+      <h2>Daftar Catatan</h2>
+      <div id="notesList" class="notes-grid"></div>
+      <p id="emptyState" class="empty" hidden>Belum ada catatan. Tambahkan dari panel kiri.</p>
+    </main>
   </div>
 
+  <!-- Gunakan server lokal (Live Server / python -m http.server) -->
   <script type="module" src="./src/app.js"></script>
 </body>
 </html>

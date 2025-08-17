@@ -1,9 +1,11 @@
-// Simpan & Ambil catatan dari localStorage
+// storage.js
+const STORAGE_KEY = "notes_app_data";
+
 export function saveNotes(notes) {
-  localStorage.setItem("notes", JSON.stringify(notes));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
 }
 
 export function loadNotes() {
-  const data = localStorage.getItem("notes");
-  return data ? JSON.parse(data) : [];
+    const data = localStorage.getItem(STORAGE_KEY);
+    return data ? JSON.parse(data) : [];
 }
