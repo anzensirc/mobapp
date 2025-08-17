@@ -1,91 +1,65 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #f5f5f5;
+  font-family: Arial, sans-serif;
+  background: #f4f4f9;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 40px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
 }
 
 h1, h2 {
-    text-align: center;
+  text-align: center;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-width: 400px;
-    margin: auto;
+.form-container, .search-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-input, textarea, button {
-    padding: 10px;
-    font-size: 14px;
+#noteInput, #searchInput {
+  flex: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
 button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
+  padding: 10px 15px;
+  border: none;
+  background: #4caf50;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 button:hover {
-    background-color: #45a049;
-}
-
-/* Layout grid catatan */
-#notesList {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    max-width: 900px;
-    margin: 20px auto;
+  background: #45a049;
 }
 
 .note {
-    background: white;
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 5px;
-    position: relative;
+  background: #e9f5ff;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  position: relative;
 }
 
 .note button {
-    padding: 5px 10px;
-    margin-top: 5px;
-    cursor: pointer;
-}
-
-.note .edit-btn {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    margin-right: 5px;
-}
-
-.note .edit-btn:hover {
-    background-color: #2980b9;
-}
-
-.note .delete-btn {
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-}
-
-.note .delete-btn:hover {
-    background-color: #c0392b;
-}
-
-.search-container {
-    max-width: 400px;
-    margin: 10px auto 20px auto; /* auto center horizontal */
-}
-
-#searchInput {
-    width: 100%;
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: red;
+  border: none;
+  color: white;
+  padding: 5px 8px;
+  border-radius: 3px;
+  cursor: pointer;
 }
