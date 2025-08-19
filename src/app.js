@@ -53,6 +53,34 @@ function handleDelete(id) {
   }
   refreshUI();
 }
+/* --- Theme toggle (light / dark) --- */
+const THEME_KEY = "notes_app_theme";
+const themeToggle = document.getElementById("themeToggle");
+
+function applyTheme(theme) {
+  if (theme === "dark") {
+    document.body.classList.add("dark-theme");
+    if (themeToggle) themeToggle.checked = true;
+  } else {
+    document.body.classList.remove("dark-theme");
+    if (themeToggle) themeToggle.checked = false;
+  }
+}
+
+// default: localStorage -> system preference -> light
+const savedTheme = localStorage.getItem(THEME_KEY)
+  || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+
+applyTheme(savedTheme);
+
+// toggle handler (simpan preferensi)
+if (themeToggle) {
+  themeToggle.addEventListener("change", () => {
+    const newTheme = themeToggle.checked ? "dark" : "light";
+    applyTheme(newTheme);
+    try { localStorage.setItem(THEME_KEY, newTheme); } catch (e) { /* ignore */ }
+  });
+}
 
 /* --- Init --- */
 function init() {

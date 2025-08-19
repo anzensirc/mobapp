@@ -1,14 +1,14 @@
 import { saveNotes, loadNotes } from "./storage.js";
 
-/** State internal (hanya dimodifikasi lewat fungsi di file ini) */
+/** State internal */
 let notes = loadNotes();
 
-/** Dapatkan seluruh catatan (array referensi aman untuk dibaca) */
+/** Getter aman */
 export function getNotes() {
   return notes;
 }
 
-/** Tambah catatan baru */
+/** Tambah catatan */
 export function addNote(content) {
   const trimmed = String(content ?? "").trim();
   if (!trimmed) return null;
@@ -24,10 +24,11 @@ export function addNote(content) {
   return note;
 }
 
-/** Update isi catatan berdasarkan id */
+/** Update catatan */
 export function updateNote(id, newContent) {
   const idx = notes.findIndex(n => n.id === id);
   if (idx === -1) return false;
+
   const trimmed = String(newContent ?? "").trim();
   if (!trimmed) return false;
 
@@ -40,7 +41,7 @@ export function updateNote(id, newContent) {
   return true;
 }
 
-/** Hapus catatan berdasarkan id */
+/** Hapus catatan */
 export function deleteNote(id) {
   const before = notes.length;
   notes = notes.filter(n => n.id !== id);
@@ -49,7 +50,7 @@ export function deleteNote(id) {
   return changed;
 }
 
-/** Cari catatan (case-insensitive) */
+/** Cari catatan */
 export function searchNotes(query) {
   const q = String(query ?? "").toLowerCase();
   if (!q) return notes;

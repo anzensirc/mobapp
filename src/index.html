@@ -3,14 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Aplikasi Catatan - Day 5</title>
-  <link rel="stylesheet" href="style.css"/>
+  <title>Aplikasi Catatan</title>
+  <link rel="stylesheet" href="./style.css"/>
 </head>
 <body>
   <div class="app">
     <!-- Sidebar Kiri -->
     <aside class="sidebar">
-      <h1>📝 Aplikasi Catatan</h1>
+      <h1>
+        <span>📝 Aplikasi Catatan</span>
+
+        <!-- Theme toggle (minimal markup, CSS sudah ada di style.css) -->
+        <label class="theme-toggle" title="Toggle tema" aria-hidden="false">
+          <input id="themeToggle" type="checkbox" aria-label="Toggle theme">
+        </label>
+      </h1>
+
 
       <form id="noteForm" class="form">
         <label for="noteInput" class="label">Catatan</label>
@@ -37,7 +45,7 @@
     </main>
   </div>
 
-  <!-- Gunakan server lokal (Live Server / python -m http.server) -->
-  <script type="module" src="./src/app.js"></script>
+  <!-- ES Modules -->
+  <script type="module" src="./app.js"></script>
 </body>
 </html>

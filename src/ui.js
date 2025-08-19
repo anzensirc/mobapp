@@ -1,4 +1,8 @@
-/** Render daftar catatan ke container (tanpa event inline) */
+/**
+ * Render daftar catatan ke container sesuai CSS:
+ * - kartu .note berisi <p> konten
+ * - toolbar di pojok bawah kanan (.note-toolbar) dengan tombol .icon-btn
+ */
 export function renderNotes(notes, container, { onEdit, onDelete } = {}) {
   container.innerHTML = "";
 
@@ -37,12 +41,12 @@ export function renderNotes(notes, container, { onEdit, onDelete } = {}) {
   container.append(frag);
 }
 
-/** Tampilkan/ sembunyikan empty state */
+/** Empty state toggle */
 export function toggleEmptyState(isEmpty, emptyEl) {
   emptyEl.hidden = !isEmpty;
 }
 
-/** Ubah UI ke mode edit (ganti label tombol, hint, dan isi textarea) */
+/** Masuk ke mode edit */
 export function enterEditMode({ textarea, submitBtn, cancelBtn, hintEl, content }) {
   textarea.value = content;
   textarea.focus();
@@ -51,7 +55,7 @@ export function enterEditMode({ textarea, submitBtn, cancelBtn, hintEl, content 
   hintEl.hidden = false;
 }
 
-/** Kembali ke mode tambah */
+/** Keluar dari mode edit */
 export function exitEditMode({ textarea, submitBtn, cancelBtn, hintEl }) {
   textarea.value = "";
   submitBtn.textContent = "Tambah";
