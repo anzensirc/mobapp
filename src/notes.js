@@ -1,5 +1,14 @@
 import { saveNotes, loadNotes } from "./storage.js";
 
+// Daftar kategori fix
+export const FIXED_CATEGORIES = [
+  "Pekerjaan",
+  "Pribadi",
+  "Belajar",
+  "Belanja",
+  "Lainnya",
+];
+
 /** State internal */
 let notes = loadNotes();
 
@@ -9,13 +18,14 @@ export function getNotes() {
 }
 
 /** Tambah catatan */
-export function addNote(content) {
+export function addNote(content, kategori = "Umum") {
   const trimmed = String(content ?? "").trim();
   if (!trimmed) return null;
 
   const note = {
     id: Date.now(),
     content: trimmed,
+    kategori: kategori || "Umum",   // kategori baru
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
@@ -25,7 +35,7 @@ export function addNote(content) {
 }
 
 /** Update catatan */
-export function updateNote(id, newContent) {
+export function updateNote(id, newContent, newKategori) {
   const idx = notes.findIndex(n => n.id === id);
   if (idx === -1) return false;
 
@@ -35,6 +45,7 @@ export function updateNote(id, newContent) {
   notes[idx] = {
     ...notes[idx],
     content: trimmed,
+    kategori: newKategori || notes[idx].kategori, // bisa ganti kategori
     updatedAt: new Date().toISOString(),
   };
   saveNotes(notes);
@@ -51,8 +62,27 @@ export function deleteNote(id) {
 }
 
 /** Cari catatan */
-export function searchNotes(query) {
+/** Cari catatan */
+export function searchNotes(query, kategori = null) {
   const q = String(query ?? "").toLowerCase();
-  if (!q) return notes;
-  return notes.filter(n => n.content.toLowerCase().includes(q));
+  let results = notes;
+
+  if (q) {
+    results = results.filter(n => n.content.toLowerCase().includes(q));
+  }
+
+  if (kategori) {
+    results = results.filter(
+      n => (n.kategori ?? "Umum").toLowerCase() === kategori.toLowerCase()
+    );
+  }
+
+  return results;
+}
+
+/** Tambah kategori baru */
+/** Ambil semua kategori unik dari catatan */
+export function getCategories() {
+  const unique = [...new Set(notes.map(n => n.kategori || "Umum"))];
+  return unique.sort();
 }

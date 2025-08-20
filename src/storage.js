@@ -12,8 +12,18 @@ export function loadNotes() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return [];
+
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
+
+    // Pastikan setiap note ada field kategori
+    if (Array.isArray(parsed)) {
+      return parsed.map(note => ({
+        ...note,
+        kategori: note.kategori || "Umum", // default kategori
+      }));
+    }
+
+    return [];
   } catch {
     return [];
   }

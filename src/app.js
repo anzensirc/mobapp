@@ -1,9 +1,22 @@
-import { getNotes, addNote, deleteNote, searchNotes, updateNote } from "./notes.js";
-import { renderNotes, toggleEmptyState, enterEditMode, exitEditMode } from "./ui.js";
+import {
+  getNotes,
+  addNote,
+  deleteNote,
+  searchNotes,
+  updateNote,
+  FIXED_CATEGORIES
+} from "./notes.js";
+import {
+  renderNotes,
+  toggleEmptyState,
+  enterEditMode,
+  exitEditMode
+} from "./ui.js";
 
 /* --- Ambil elemen --- */
 const noteForm = document.getElementById("noteForm");
 const noteInput = document.getElementById("noteInput");
+const categoryInput = document.getElementById("noteCategory"); // sekarang <select>
 const submitBtn = document.getElementById("submitBtn");
 const cancelEditBtn = document.getElementById("cancelEditBtn");
 const editHint = document.getElementById("editHint");
@@ -12,14 +25,21 @@ const searchInput = document.getElementById("searchInput");
 const notesList = document.getElementById("notesList");
 const emptyState = document.getElementById("emptyState");
 
+// filter kategori (optional dropdown di UI)
+const categoryFilter = document.getElementById("categoryFilter");
+
 /* --- State UI --- */
 let currentQuery = "";
+let currentCategoryFilter = null;
 let editingId = null;
 
 /* --- Helper render --- */
 function currentData() {
-  return currentQuery ? searchNotes(currentQuery) : getNotes();
+  return currentQuery || currentCategoryFilter
+    ? searchNotes(currentQuery, currentCategoryFilter)
+    : getNotes();
 }
+
 function refreshUI() {
   const data = currentData();
   renderNotes(data, notesList, {
@@ -41,18 +61,20 @@ function handleStartEdit(id) {
     hintEl: editHint,
     content: note.content,
   });
+  if (categoryInput) categoryInput.value = note.kategori || FIXED_CATEGORIES[0];
 }
 
 function handleDelete(id) {
   if (!confirm("Hapus catatan ini?")) return;
   deleteNote(id);
-  // Jika sedang mengedit catatan yang dihapus, keluar dari edit mode
   if (editingId === id) {
     editingId = null;
     exitEditMode({ textarea: noteInput, submitBtn, cancelBtn: cancelEditBtn, hintEl: editHint });
+    if (categoryInput) categoryInput.value = FIXED_CATEGORIES[0];
   }
   refreshUI();
 }
+
 /* --- Theme toggle (light / dark) --- */
 const THEME_KEY = "notes_app_theme";
 const themeToggle = document.getElementById("themeToggle");
@@ -67,13 +89,23 @@ function applyTheme(theme) {
   }
 }
 
+function populateCategorySelect() {
+  if (!categoryInput) return;
+  categoryInput.innerHTML = "";
+  FIXED_CATEGORIES.forEach(cat => {
+    const opt = document.createElement("option");
+    opt.value = cat;
+    opt.textContent = cat;
+    categoryInput.appendChild(opt);
+  });
+}
+
 // default: localStorage -> system preference -> light
 const savedTheme = localStorage.getItem(THEME_KEY)
   || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
 
 applyTheme(savedTheme);
 
-// toggle handler (simpan preferensi)
 if (themeToggle) {
   themeToggle.addEventListener("change", () => {
     const newTheme = themeToggle.checked ? "dark" : "light";
@@ -84,22 +116,25 @@ if (themeToggle) {
 
 /* --- Init --- */
 function init() {
-  // Render awal
+  populateCategorySelect();
   refreshUI();
 
-  // Submit form: tambah atau update
+  // Submit form
   noteForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const content = noteInput.value.trim();
+    const kategori = categoryInput ? categoryInput.value : FIXED_CATEGORIES[0];
     if (!content) return;
 
     if (editingId) {
-      updateNote(editingId, content);
+      updateNote(editingId, content, kategori);
       editingId = null;
       exitEditMode({ textarea: noteInput, submitBtn, cancelBtn: cancelEditBtn, hintEl: editHint });
+      if (categoryInput) categoryInput.value = FIXED_CATEGORIES[0];
     } else {
-      addNote(content);
+      addNote(content, kategori);
       noteInput.value = "";
+      if (categoryInput) categoryInput.value = FIXED_CATEGORIES[0];
     }
     refreshUI();
   });
@@ -108,6 +143,7 @@ function init() {
   cancelEditBtn.addEventListener("click", () => {
     editingId = null;
     exitEditMode({ textarea: noteInput, submitBtn, cancelBtn: cancelEditBtn, hintEl: editHint });
+    if (categoryInput) categoryInput.value = FIXED_CATEGORIES[0];
   });
 
   // Pencarian realtime
@@ -115,6 +151,22 @@ function init() {
     currentQuery = searchInput.value.trim();
     refreshUI();
   });
+
+  // Filter kategori (jika ada select di HTML)
+  if (categoryFilter) {
+    categoryFilter.innerHTML = "<option value=''>Semua</option>";
+    FIXED_CATEGORIES.forEach(cat => {
+      const opt = document.createElement("option");
+      opt.value = cat;
+      opt.textContent = cat;
+      categoryFilter.appendChild(opt);
+    });
+
+    categoryFilter.addEventListener("change", () => {
+      currentCategoryFilter = categoryFilter.value || null;
+      refreshUI();
+    });
+  }
 }
 
 init();

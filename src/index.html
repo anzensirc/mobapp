@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aplikasi Catatan</title>
-  <link rel="stylesheet" href="./style.css"/>
+  <link rel="stylesheet" href="./style.css" />
 </head>
+
 <body>
   <div class="app">
     <!-- Sidebar Kiri -->
@@ -19,10 +21,15 @@
         </label>
       </h1>
 
-
       <form id="noteForm" class="form">
         <label for="noteInput" class="label">Catatan</label>
         <textarea id="noteInput" placeholder="Tulis catatan baru..." required></textarea>
+
+        <!-- Tambahan: input kategori -->
+        <label for="noteCategory" class="label">Kategori</label>
+        <select id="noteCategory">
+          <!-- opsi diisi otomatis lewat JS -->
+        </select>
 
         <div class="actions">
           <button id="submitBtn" type="submit">Tambah</button>
@@ -33,7 +40,15 @@
       </form>
 
       <div class="search-container">
-        <input id="searchInput" type="text" placeholder="Cari catatan..."/>
+        <input id="searchInput" type="text" placeholder="Cari catatan..." />
+
+        <!-- Opsional: filter kategori -->
+        <select id="categoryFilter">
+          <option value="">Semua Kategori</option>
+          <option value="Umum">Umum</option>
+          <option value="Pekerjaan">Pekerjaan</option>
+          <option value="Pribadi">Pribadi</option>
+        </select>
       </div>
     </aside>
 
@@ -48,4 +63,5 @@
   <!-- ES Modules -->
   <script type="module" src="./app.js"></script>
 </body>
+
 </html>
