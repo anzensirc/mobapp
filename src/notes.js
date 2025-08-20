@@ -7,7 +7,7 @@ export const FIXED_CATEGORIES = [
   "Belajar",
   "Belanja",
   "Lainnya",
-];
+];  
 
 /** State internal */
 let notes = loadNotes();
@@ -18,14 +18,14 @@ export function getNotes() {
 }
 
 /** Tambah catatan */
-export function addNote(content, kategori = "Umum") {
+export function addNote(content, kategori = "Lainnya") {
   const trimmed = String(content ?? "").trim();
   if (!trimmed) return null;
 
   const note = {
     id: Date.now(),
     content: trimmed,
-    kategori: kategori || "Umum",   // kategori baru
+    kategori: kategori || "Lainnya",   // kategori baru
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };

@@ -19,7 +19,7 @@ export function loadNotes() {
     if (Array.isArray(parsed)) {
       return parsed.map(note => ({
         ...note,
-        kategori: note.kategori || "Umum", // default kategori
+        kategori: note.kategori || "Lainnya", // default kategori
       }));
     }
 

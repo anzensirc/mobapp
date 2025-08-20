@@ -1,9 +1,3 @@
-/**
- * Render daftar catatan ke container sesuai CSS:
- * - kartu .note berisi <p> konten
- * - kategori tampil di atas konten (.note-category)
- * - toolbar di pojok bawah kanan (.note-toolbar) dengan tombol .icon-btn
- */
 export function renderNotes(notes, container, { onEdit, onDelete } = {}) {
   container.innerHTML = "";
 
@@ -16,16 +10,12 @@ export function renderNotes(notes, container, { onEdit, onDelete } = {}) {
     card.className = "note";
     card.dataset.id = String(note.id);
 
-    // kategori
-    const category = document.createElement("span");
-    category.className = "note-category";
-    category.textContent = note.kategori || "Umum";
+    const kategoriEl = document.createElement("p");
+    kategoriEl.innerHTML = `<strong>Kategori :</strong> ${note.kategori || "Lainnya"}`;
 
-    // isi catatan
-    const text = document.createElement("p");
-    text.textContent = note.content;
+    const contentEl = document.createElement("p");
+    contentEl.innerHTML = `<strong>Catatan :</strong> ${note.content}`;
 
-    // toolbar
     const toolbar = document.createElement("div");
     toolbar.className = "note-toolbar";
 
@@ -42,9 +32,7 @@ export function renderNotes(notes, container, { onEdit, onDelete } = {}) {
     delBtn.addEventListener("click", () => onDelete?.(note.id));
 
     toolbar.append(editBtn, delBtn);
-
-    // susun card
-    card.append(category, text, toolbar);
+    card.append(kategoriEl, contentEl, toolbar);
     frag.append(card);
   }
 
